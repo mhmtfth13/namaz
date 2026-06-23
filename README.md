@@ -74,7 +74,7 @@ $ namaz -a
      Yatsı   22:50
 ```
 
-Geçmiş vakitler soluk, sıradaki `›` ile işaretli.
+Renkler: **şu anki vakit yeşil** (`›` ile işaretli), **geçmiş vakitler kırmızı**, **gelecek vakitler gri**.
 
 ### Konum
 

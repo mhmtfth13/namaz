@@ -353,13 +353,20 @@ func render(place string, vs []vakit, showAll bool, c colors) {
 }
 
 func printTable(vs []vakit, next *vakit, now time.Time, c colors) {
-	for _, v := range vs {
-		marker, style := "   ", c.reset
+	// İçinde bulunduğumuz vakit = başlamış en son vakit (t <= now olan sonuncusu).
+	current := -1
+	for i := range vs {
+		if !vs[i].t.After(now) {
+			current = i
+		}
+	}
+	for i, v := range vs {
+		marker, style := "   ", c.gray // gelecek vakitler: gri
 		switch {
-		case next != nil && v.name == next.name:
-			marker, style = c.accent+" ›"+c.reset+" ", c.accent
-		case v.t.Before(now):
-			style = c.dim
+		case i == current:
+			marker, style = c.accent+" ›"+c.reset+" ", c.accent // şu anki vakit: yeşil
+		case i < current:
+			style = c.red // geçmiş vakitler: kırmızı
 		}
 		fmt.Printf("  %s%s%-7s%s %s\n", marker, style, v.disp, c.reset, v.t.Format("15:04"))
 	}
@@ -501,7 +508,7 @@ func writeCache(path, today string, l loc, vs []vakit) {
 
 // --- renk ---
 
-type colors struct{ bold, dim, accent, reset string }
+type colors struct{ bold, dim, accent, red, gray, reset string }
 
 func newColor(plain bool) colors {
 	if plain {
@@ -510,7 +517,9 @@ func newColor(plain bool) colors {
 	return colors{
 		bold:   "\x1b[1m",
 		dim:    "\x1b[2m",
-		accent: "\x1b[38;5;42m",
+		accent: "\x1b[38;5;42m",  // yeşil — şu anki vakit
+		red:    "\x1b[38;5;203m", // kırmızı — geçmiş vakitler
+		gray:   "\x1b[38;5;245m", // gri — gelecek vakitler
 		reset:  "\x1b[0m",
 	}
 }
