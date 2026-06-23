@@ -1,0 +1,10 @@
+# derlenen binary'ler (Release'e yüklenir, repoda tutulmaz)
+/namaz
+/namaz.exe
+/dist/
+
+# editör / OS
+.DS_Store
+.claude/
+.idea/
+.vscode/
