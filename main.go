@@ -328,23 +328,27 @@ func render(place string, vs []vakit, showAll bool, c colors) {
 		}
 	}
 
-	fmt.Printf("\n  %s%s%s · %s\n\n", c.bold, place, c.reset, turkishDate(now))
-
 	if next != nil {
 		when := ""
 		if next.tomorrow {
-			when = c.dim + "  (yarın)" + c.reset
+			when = c.dim + " (yarın)" + c.reset
 		}
-		fmt.Printf("  %sSıradaki%s  %s%-7s%s %s%s\n",
-			c.dim, c.reset, c.accent+c.bold, next.disp, c.reset, next.t.Format("15:04"), when)
-		fmt.Printf("  %sKalan%s     %s%s%s\n\n",
-			c.dim, c.reset, c.accent, humanDur(next.t.Sub(now)), c.reset)
+		// Örn: "Öğle vaktine kalan 11 dk"
+		fmt.Printf("\n  %s%s%s vaktine kalan %s%s%s%s  %s%s%s\n",
+			c.bold, next.disp, c.reset,
+			c.accent+c.bold, humanDur(next.t.Sub(now)), c.reset, when,
+			c.dim, next.t.Format("15:04"), c.reset)
+		fmt.Printf("  %sLokasyon: %s%s\n", c.dim, place, c.reset)
 	} else {
-		fmt.Printf("  %sBugünün vakitleri bitti. Sırada yarın İmsak.%s\n\n", c.dim, c.reset)
+		fmt.Printf("\n  %sBugünün vakitleri bitti. Sırada yarın İmsak.%s\n", c.dim, c.reset)
+		fmt.Printf("  %sLokasyon: %s%s\n", c.dim, place, c.reset)
 	}
 
 	if showAll || next == nil {
+		fmt.Printf("\n  %s%s%s\n", c.dim, turkishDate(now), c.reset)
 		printTable(vs, next, now, c)
+	} else {
+		fmt.Println()
 	}
 }
 

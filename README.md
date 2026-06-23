@@ -5,10 +5,8 @@ Terminalde `namaz` yaz → sıradaki namaz vaktine kalan süreyi gör. Windows, 
 ```
 $ namaz
 
-  İstanbul · 23 Haziran Salı
-
-  Sıradaki  İkindi  17:18
-  Kalan     3 saat 24 dk
+  İkindi vaktine kalan 3 saat 19 dk  17:19
+  Lokasyon: İstanbul
 ```
 
 Vakitler [namazvakti.com](https://www.namazvakti.com) (Diyanet) kaynağından alınır. Tek binary, bağımlılık yok.
@@ -64,15 +62,14 @@ namaz -a         # günün tüm vakitlerini listele
 ```
 $ namaz -a
 
-  İstanbul · 23 Haziran Salı
+  İkindi vaktine kalan 3 saat 19 dk  17:19
+  Lokasyon: İstanbul
 
-  Sıradaki  İkindi  17:18
-  Kalan     3 saat 24 dk
-
+  23 Haziran Salı
      İmsak   03:03
      Güneş   05:25
      Öğle    13:18
-   › İkindi  17:18
+   › İkindi  17:19
      Akşam   20:48
      Yatsı   22:50
 ```
